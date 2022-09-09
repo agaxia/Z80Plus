@@ -237,10 +237,8 @@ Z80_CLOCK_API zuint8 z80_clock_m1(Z80Clock *self, zuint8 opcode)
 			}
 		}
 
-	self->pattern_table_index = pattern &  3;
-	self->pattern             = pattern >> 12;
-
-	return (pattern >> 8) & 0xF;
+	self->pattern_table_index = pattern & 3;
+	return (self->pattern = pattern >> 8) & 0xF;
 	}
 
 
