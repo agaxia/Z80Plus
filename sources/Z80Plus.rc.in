@@ -19,7 +19,7 @@ BEGIN
 			VALUE "FileDescription",  "@PROJECT_DESCRIPTION@"
 			VALUE "FileVersion",      "@PROJECT_VERSION@"
 			VALUE "InternalName",     "@PROJECT_NAME@"
-			VALUE "LegalCopyright",   "Copyright © 2022 Sofía Ortega Sosa"
+			VALUE "LegalCopyright",   "Copyright © 2021-2022 Sofía Ortega Sosa"
 			VALUE "OriginalFilename", "@PROJECT_NAME@.dll"
 			VALUE "ProductName",      "@PROJECT_NAME@"
 			VALUE "ProductVersion",   "@PROJECT_VERSION@"

@@ -1,5 +1,11 @@
-# Z80Clock
+# Z80Plus - CMakeLists.txt
+#  ______  ______ ______    ___
+# /\___  \/\  __ \\  __ \ _/\  \___
+# \/__/  /\_\  __ \\ \/\ \\___   __\
+#    /\_____\\_____\\_____\__/\__\_/
+#    \/_____//_____//_____/  \/__/
 # Copyright (C) 2021-2022 Sofía Ortega Sosa.
+# Released under the terms of the MIT license.
 
 cmake_minimum_required(VERSION 3.14) # install(TARGETS ARCHIVE [DESTINATION])
 
@@ -10,12 +16,12 @@ if(	CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR AND
 	set(CMAKE_BUILD_TYPE Release)
 endif()
 
-file(READ "${CMAKE_CURRENT_SOURCE_DIR}/API/Z80Clock.h" _)
-string(REGEX MATCH ".*Z80_CLOCK_LIBRARY_VERSION_STRING \"([^\n]*)\".*" _ ${_})
+file(READ "${CMAKE_CURRENT_SOURCE_DIR}/API/Z80Plus.hpp" _)
+string(REGEX MATCH ".*Z80_PLUS_LIBRARY_VERSION_STRING \"([^\n]*)\".*" _ ${_})
 
-project(Z80Clock
+project(Z80Plus
 	VERSION ${CMAKE_MATCH_1}
-	LANGUAGES C
+	LANGUAGES CXX
 	DESCRIPTION "")
 
 unset(_)
@@ -45,7 +51,7 @@ NO)
 
 option(${PROJECT_NAME}_WITH_STANDARD_DOCUMENTS
 "Install the standard text documents distributed with the package: \
-AUTHORS, LICENSE, HISTORY and README."
+AUTHORS, LICENSE, HISTORY and README.md."
 NO)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
@@ -53,17 +59,17 @@ find_package(Z80 REQUIRED)
 
 add_library(
 	${PROJECT_NAME}
-	"${CMAKE_CURRENT_SOURCE_DIR}/API/Z80Clock.h"
-	"${CMAKE_CURRENT_SOURCE_DIR}/sources/Z80Clock.c")
+	"${CMAKE_CURRENT_SOURCE_DIR}/API/Z80Plus.hpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/sources/Z80Plus.cpp")
 
 set_target_properties(
 	${PROJECT_NAME} PROPERTIES
-	C_STANDARD 99
-	C_STANDARD_REQUIRED NO
+	CXX_STANDARD 11
+	CXX_STANDARD_REQUIRED YES
 	VERSION	${PROJECT_VERSION}
 	SOVERSION ${PROJECT_VERSION_MAJOR}
 	DEBUG_POSTFIX "-debug"
-	PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/API/Z80Clock.h")
+	PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/API/Z80Plus.hpp")
 
 target_link_libraries(${PROJECT_NAME} PUBLIC Z80)
 
@@ -79,11 +85,11 @@ if(BUILD_SHARED_LIBS)
 		endif()
 
 		configure_file(
-			"${CMAKE_CURRENT_SOURCE_DIR}/sources/Z80Clock.rc.in"
-			"${PROJECT_BINARY_DIR}/Z80Clock.rc"
+			"${CMAKE_CURRENT_SOURCE_DIR}/sources/Z80Plus.rc.in"
+			"${PROJECT_BINARY_DIR}/Z80Plus.rc"
 			@ONLY)
 
-		target_sources(${PROJECT_NAME} PRIVATE "${PROJECT_BINARY_DIR}/Z80Clock.rc")
+		target_sources(${PROJECT_NAME} PRIVATE "${PROJECT_BINARY_DIR}/Z80Plus.rc")
 	endif()
 else()
 	target_compile_definitions(${PROJECT_NAME} PUBLIC Z80_STATIC)
@@ -148,11 +154,9 @@ endif()
 
 if(${PROJECT_NAME}_WITH_STANDARD_DOCUMENTS)
 	install(FILES	"${CMAKE_CURRENT_SOURCE_DIR}/AUTHORS"
-			"${CMAKE_CURRENT_SOURCE_DIR}/COPYING"
-			"${CMAKE_CURRENT_SOURCE_DIR}/COPYING.LESSER"
+			"${CMAKE_CURRENT_SOURCE_DIR}/LICENSE"
 			"${CMAKE_CURRENT_SOURCE_DIR}/HISTORY"
-			"${CMAKE_CURRENT_SOURCE_DIR}/README"
-			"${CMAKE_CURRENT_SOURCE_DIR}/THANKS"
+			"${CMAKE_CURRENT_SOURCE_DIR}/README.md"
 		DESTINATION ${CMAKE_INSTALL_DOCDIR}
 		COMPONENT "${PROJECT_NAME}_Runtime")
 endif()
