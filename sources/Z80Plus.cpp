@@ -182,7 +182,7 @@ Input and Output _______________________ // T-states       | prefix M1  | M1    
 #define in_J_vc               000,    44 //    12:444      | prefix(pc) | opcode(pc+1)   | in(bc)         |                  |             |               |
 #define in_vc                 000,    44 //    12:444      | prefix(pc) | opcode(pc+1)   | in(bc)         |                  |             |               |
 #define inX                  0100,   345 //    16:4543     | prefix(pc) | opcode(pc+1):1 | in(bc)         | write(hl)        |             |               |
-#define inXr                 51F8,   845 //    21:45435    | prefix(pc) | opcode(pc+1):1 | in(bc)         | write(hl) %:5    |             |               |
+#define inXr                 51F8,   845 //    21:45435    | prefix(pc) | opcode(pc+1):1 | in(bc)         | write(hl)        | %:5         |               |
 #define out_vBYTE_a         00000,   434 //    11:434      |            | opcode(pc)     | argument(pc+1) | out((a<<8)|BYTE) |             |               |
 #define out_vc_J             0000,    44 //    12:444      | prefix(pc) | opcode(pc+1)   | out(bc)        |                  |             |               |
 #define out_vc_0             0000,    44 //    12:444      | prefix(pc) | opcode(pc+1)   | out(bc)        |                  |             |               |
